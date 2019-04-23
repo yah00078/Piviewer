@@ -12,6 +12,7 @@ Raspberry Simple VNC Viewer with Web interface
           - php 7.0
           - apache2
 	  - vncpasswd
+	  - redis-server
 ## Path
 HTML Folder -> Put in Web folder
 
