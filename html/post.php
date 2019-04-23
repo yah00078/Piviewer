@@ -16,14 +16,14 @@ $password=$_POST['password'];
 
 //Doit on changer le mot de passe ? 
 if (!empty($password)) {
-	shell_exec(escapeshellcmd('sudo /usr/src/piviewer/intelvnc.sh --update-password '.$password));
+	shell_exec(escapeshellcmd('sudo '.$intelvncpath '--update-password '.$password));
 	echo 'PASSWORD CHANGED - ';
 }
 
 //Parsing de l'action sur le VNC 
 if (isset($_POST['stop'])) {
 	
-	shell_exec(escapeshellcmd('sudo /usr/src/piviewer/intelvnc.sh --stop '.$targetip.':'.$targetport));
+	shell_exec(escapeshellcmd('sudo '.$intelvncpath ' --stop '.$targetip.':'.$targetport));
 	call_user_func('write_state',$Data,'0');	
 	echo 'STOPPED';
 
@@ -31,7 +31,7 @@ if (isset($_POST['stop'])) {
 
 elseif (!empty($targetip) && !empty($targetport) && !empty($_POST['viewonly'])) {	
 
-	shell_exec(escapeshellcmd('sudo /usr/src/piviewer/intelvnc.sh --start-view '.$targetip.':'.$targetport));
+	shell_exec(escapeshellcmd('sudo '.$intelvncpath ' --start-view '.$targetip.':'.$targetport));
 	call_user_func('write_state',$targetip,$targetport,'1');
 	echo 'STARTED - TARGET:'.$targetip.':'.$targetport.'- VIEW-ONLY MODE';
 
@@ -39,7 +39,7 @@ elseif (!empty($targetip) && !empty($targetport) && !empty($_POST['viewonly'])) 
 
 elseif (!empty($targetip) && !empty($targetport)) {
 
-	shell_exec(escapeshellcmd('sudo /usr/src/piviewer/intelvnc.sh --start '.$targetip.':'.$targetport));
+	shell_exec(escapeshellcmd('sudo '.$intelvncpath ' --start '.$targetip.':'.$targetport));
 	call_user_func('write_state',$targetip,$targetport,'1');	
 	echo 'STARTED - TARGET:'.$targetip.':'.$targetport.'- CONTROL MODE';
 
