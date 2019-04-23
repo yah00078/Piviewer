@@ -1,6 +1,6 @@
 <?php
 $version="1.2";
-
+$intelvncpath="/usr/src/piviewer/intelvnc.sh"
 //Statut des informations écrites
 //Status 0 -> On stoppe -> On détruit le fichier 
 //Status 1 -> On start -> On créé le fichier
