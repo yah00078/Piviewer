@@ -165,6 +165,34 @@ echo -e "\033[31m ! Password Changed !\033[0m"
 }
 #----------------------------------------------------------
 
+# Renvoyer les paramètres en cours
+function intel-status {
+REQUEST=$1
+
+	#Qualification de la demande
+	# Si les parametres sont vides
+	if [ -z "$REQUEST" ]; then
+		echo Please give "ip" or "port" or "error" param
+	
+	# Si on demande l'ip
+	elif [ $REQUEST = "ip" ]; then
+	echo $(read_redis TARGETIP)
+
+	#Si on demande le port
+	elif [ $REQUEST = "port" ]; then
+	echo $(read_redis TARGETPORT)
+	
+	#Si on demande le status du remote host
+		elif [ $REQUEST = "error" ]; then
+	echo $(read_redis PING_ERROR)
+
+	else
+		echo "Unknown parameter"
+
+		fi
+}
+
+
 
 #Parsing des valeures: --start --stop --start-view --update-password --watchdog
 optspec=":-:"
@@ -196,6 +224,12 @@ while getopts "$optspec" optchar; do
 			    exit 0
 		        ;;
 				
+		    status)
+			  value="${!OPTIND}" OPTIND=$(( $OPTIND + 1 ))
+			  intel-status $value
+			    exit 0
+		        ;;
+
 			watchdog)
 			  value="${!OPTIND}" OPTIND=$(( $OPTIND + 1 ))
 				watchdog
